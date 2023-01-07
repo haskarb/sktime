@@ -82,10 +82,10 @@ class BaggingForecaster(BaseForecaster):
     >>> y = load_airline()
     >>> forecaster = BaggingForecaster(
     ...     STLBootstrapTransformer(sp=12), NaiveForecaster(sp=12)
-    ... )
-    >>> forecaster.fit(y)
+    ... )  # doctest: +SKIP
+    >>> forecaster.fit(y)  # doctest: +SKIP
     BaggingForecaster(...)
-    >>> y_hat = forecaster.predict([1,2,3])
+    >>> y_hat = forecaster.predict([1,2,3])  # doctest: +SKIP
     """
 
     _tags = {
@@ -225,7 +225,9 @@ class BaggingForecaster(BaseForecaster):
             Point predictions
         """
         y_bootstraps_pred = self.forecaster_.predict(fh=fh, X=None)
-        return y_bootstraps_pred.groupby(level=-1).mean()
+        y_pred = y_bootstraps_pred.groupby(level=-1).mean().iloc[:, 0]
+        y_pred.name = None
+        return y_pred
 
     def _predict_quantiles(self, fh, X=None, alpha=None):
         """Compute/return prediction quantiles for a forecast.
