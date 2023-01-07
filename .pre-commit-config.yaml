@@ -28,8 +28,8 @@ repos:
         language_version: python3
         # args: [--line-length 79]
 
-  - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+  - repo: https://github.com/PyCQA/flake8
+    rev: 5.0.4
     hooks:
       - id: flake8
         exclude: docs/conf.py
@@ -67,3 +67,4 @@ repos:
     hooks:
       - id: shellcheck
         name: shellcheck
+ 
